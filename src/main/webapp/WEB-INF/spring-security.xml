@@ -1,0 +1,58 @@
+<!-- <beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	http://www.springframework.org/schema/security
+	http://www.springframework.org/schema/security/spring-security-4.0.xsd
+	 http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-4.0.xsd"> -->
+    
+ <beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	http://www.springframework.org/schema/security
+	http://www.springframework.org/schema/security/spring-security-4.0.xsd">
+	
+	<!-- 
+	<http auto-config="true" use-expressions="true">
+		<intercept-url pattern="/admin**" access="hasRole('ROLE_ADMIN')" />
+
+		access denied page
+		<access-denied-handler error-page="/403" />
+		<form-login 
+		    login-page="/login" 
+		    default-target-url="/welcome"
+			authentication-failure-url="/login?error" 
+			username-parameter="username"
+			password-parameter="password" />
+		<logout logout-success-url="/login?logout" />
+		enable csrf protection
+		<csrf />
+	</http> -->
+	
+	
+	<http use-expressions="true"
+		entry-point-ref="unauthorizedEntryPoint"
+		authentication-manager-ref="authenticationManager"
+		create-session="stateless">
+		<csrf disabled="true"/>
+		<custom-filter ref="authenticationTokenProcessingFilter" position="PRE_AUTH_FILTER" />
+		<intercept-url pattern="/user/authenticate" access="permitAll" />
+		<intercept-url method="GET" pattern="/rest/news/**" access="hasRole('USER')" />
+		<intercept-url method="PUT" pattern="/rest/news/**" access="hasRole('ADMIN')" />
+		<intercept-url method="POST" pattern="/rest/news/**" access="hasRole('ADMIN')" />
+		<intercept-url method="DELETE" pattern="/rest/news/**" access="hasRole('ADMIN')" />
+	</http>
+	
+	<authentication-manager alias="authenticationManager">
+		<authentication-provider user-service-ref="myUserDetailsService" >
+			<password-encoder hash="bcrypt" />    
+		</authentication-provider>
+	</authentication-manager>
+
+</beans:beans>
