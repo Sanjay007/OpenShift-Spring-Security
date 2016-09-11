@@ -1,8 +1,6 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:context="http://www.springframework.org/schema/context"
-	 xmlns:aop="http://www.springframework.org/schema/aop"
-	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
 	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd 
 	http://www.springframework.org/schema/aop 
@@ -12,39 +10,35 @@
     http://www.springframework.org/schema/context
     http://www.springframework.org/schema/context/spring-context-4.0.xsd">
 
-<context:component-scan base-package="com.mkyong" />
+	<context:component-scan base-package="com.mkyong" />
 
-	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+<!-- 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close">
-
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url" value="jdbc:mysql://127.3.106.2:3306/jbossews2" />
 		<property name="username" value="admineXCtBpd" />
-		 <property name="password" value="t-VVfKaGjVzB" />
-	</bean>
-	
-		<bean id="userDao" class="com.mkyong.users.dao.UserDaoImpl">
+		<property name="password" value="t-VVfKaGjVzB" />
+	</bean> -->
+
+	<bean id="userDao" class="com.mkyong.users.dao.UserDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-	
+
 	<bean id="unauthorizedEntryPoint" class="com.mkyong.security.UnauthorizedEntryPoint" />
 
 	<bean id="authenticationTokenProcessingFilter" class="com.mkyong.security.AuthenticationTokenProcessingFilter">
-		 <constructor-arg ref="myUserDetailsService" /> 
+		<constructor-arg ref="myUserDetailsService" />
 	</bean>
-	
 
-<!--
- <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
-		destroy-method="close">
-		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost:3308/jbossews2" />
+
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		 <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		 <property name="url" value="jdbc:mysql://localhost:3308/jbossews2" /> 
 		<property name="username" value="root" />
-		 <property name="password" value="root" />
-	</bean> 
-	-->
+		 <property name="password" value="root" /> 
+		 </bean>
 
-<tx:annotation-driven transaction-manager="transactionManager"/>
+	<tx:annotation-driven transaction-manager="transactionManager" />
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
@@ -61,11 +55,11 @@
 				<prop key="hibernate.show_sql">true</prop>
 				<prop key="hibernate.hbm2ddl.auto">update</prop>
 				<prop key="hibernate.current_session_context_class">thread</prop>
-				
+
 			</props>
 		</property>
 	</bean>
-	
+
 	<bean id="objectMapper" class="org.codehaus.jackson.map.ObjectMapper" />
 
 

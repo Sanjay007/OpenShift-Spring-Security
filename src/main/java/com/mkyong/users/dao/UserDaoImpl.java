@@ -8,11 +8,13 @@ import javax.transaction.Transaction;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mkyong.log.RunInvLogger;
 import com.mkyong.users.model.User;
 
+@Component
 public class UserDaoImpl implements UserDao {
 
 	private SessionFactory sessionFactory;

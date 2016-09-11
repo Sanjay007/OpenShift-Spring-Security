@@ -28,10 +28,8 @@ public class MyUserDetailsService implements UserDetailsService {
 	@Autowired
 	private UserDao userDao;
 	
-	 private TransactionTemplate transactionTemplate;
-
-	  public void setTransactionManager(PlatformTransactionManager transactionManager) {
-		this.transactionTemplate = new TransactionTemplate(transactionManager);
+	 public void setTransactionManager(PlatformTransactionManager transactionManager) {
+		new TransactionTemplate(transactionManager);
 	  }
 
 	@Override

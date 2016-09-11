@@ -1,6 +1,7 @@
 package com.mkyong.web.controller;
 
 import javax.ws.rs.FormParam;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -19,7 +20,9 @@ import org.springframework.stereotype.Controller;
 
 import com.mkyong.security.TokenTransfer;
 import com.mkyong.security.TokenUtils;
+import com.mkyong.security.UserTransfer;
 import com.mkyong.users.dao.UserDao;
+import com.mkyong.users.model.UserRole;
 
 
 @Component
@@ -80,6 +83,15 @@ public class MyController {
 		UserDetails userDetails = this.myUserDetailsService.loadUserByUsername(username);
 
 		return new TokenTransfer(TokenUtils.createToken(userDetails));
+	}
+	
+	@Path("news/get")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public UserDetails getNews()
+	{
+		UserDetails userDetails = this.myUserDetailsService.loadUserByUsername("mkyong");
+	return userDetails;
 	}
 	
 	

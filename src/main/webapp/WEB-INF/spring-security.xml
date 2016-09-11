@@ -43,7 +43,7 @@
 		<csrf disabled="true"/>
 		<custom-filter ref="authenticationTokenProcessingFilter" position="PRE_AUTH_FILTER" />
 		<intercept-url pattern="/user/authenticate" access="permitAll" />
-		<intercept-url method="GET" pattern="/rest/news/**" access="hasRole('USER')" />
+		<intercept-url method="GET" pattern="/user/news/**" access="hasRole('USER')" />
 		<intercept-url method="PUT" pattern="/rest/news/**" access="hasRole('ADMIN')" />
 		<intercept-url method="POST" pattern="/rest/news/**" access="hasRole('ADMIN')" />
 		<intercept-url method="DELETE" pattern="/rest/news/**" access="hasRole('ADMIN')" />
@@ -51,7 +51,7 @@
 	
 	<authentication-manager alias="authenticationManager">
 		<authentication-provider user-service-ref="myUserDetailsService" >
-			<password-encoder hash="bcrypt" />    
+			<!-- <password-encoder hash="bcrypt" /> -->    
 		</authentication-provider>
 	</authentication-manager>
 
